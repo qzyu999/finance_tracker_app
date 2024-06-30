@@ -359,7 +359,5 @@ gc = gspread.service_account()
 finance_tracker_db_spreadsheet = gc.open_by_key(SPREADSHEET_KEY)
 east_west_bank_credit_card_statements_worksheet = finance_tracker_db_spreadsheet.worksheet(WORKSHEET_NAME)
 east_west_bank_credit_card_statements_worksheet.update([total_transactions_df.columns.values.tolist()] + total_transactions_df.values.tolist())
-# east_west_bank_credit_card_statements_worksheet.format("D:D", {"numberFormat": {"type": "CURRENCY"}})
-# east_west_bank_credit_card_statements_worksheet.format("A:B", {"numberFormat": {"type": "DATE_TIME"}})
 
 print("SUCCESS")
