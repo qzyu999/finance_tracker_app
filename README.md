@@ -1,2 +1,2 @@
 # finance_tracker_app
- App to trace personal finances
+ App to track personal finances
