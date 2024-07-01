@@ -12,6 +12,8 @@ import numpy as np
 SPREADSHEET_KEY=os.environ['SPREADSHEET_KEY']
 EAST_WEST_BANK_BANK_STATEMENTS_WORKSHEET_NAME='east_west_bank_bank_statements'
 EAST_WEST_BANK_BANK_STATEMENTS_CATEGORIZED_WORKSHEET_NAME='east_west_bank_bank_statements_categorized'
+MARCUS_BANK_STATEMENTS_WORKSHEET_NAME='marcus_bank_statements'
+EAST_WEST_BANK_CREDIT_CARD_STATEMENTS_WORKSHEET_NAME='east_west_bank_credit_card_statements'
 EAST_WEST_BANK_BANK_STATEMENT_INITIAL_BALANCE=2459.25
 EAST_WEST_BANK_CREDIT_CARD_INITIAL_BALANCE=1937.56
 TARGET_NET_WORTH = 100000
@@ -31,7 +33,7 @@ net_worth_worksheet_df = pd.DataFrame(net_worth_worksheet.get_all_records())
 east_west_bank_bank_statements_categorized_worksheet = finance_tracker_db_spreadsheet.worksheet(EAST_WEST_BANK_BANK_STATEMENTS_CATEGORIZED_WORKSHEET_NAME)
 east_west_bank_bank_statements_categorized_worksheet_df = pd.DataFrame(east_west_bank_bank_statements_categorized_worksheet.get_all_records())
 
-marcus_worksheet = finance_tracker_db_spreadsheet.worksheet('marcus_bank_statements')
+marcus_worksheet = finance_tracker_db_spreadsheet.worksheet(MARCUS_BANK_STATEMENTS_WORKSHEET_NAME)
 marcus_worksheet_df = pd.DataFrame(marcus_worksheet.get_all_records())
 
 robinhood_brokerage_worksheet = finance_tracker_db_spreadsheet.worksheet('robinhood_brokerage_modified')
@@ -40,7 +42,7 @@ robinhood_brokerage_worksheet_df = pd.DataFrame(robinhood_brokerage_worksheet.ge
 robinhood_traditional_ira_worksheet = finance_tracker_db_spreadsheet.worksheet('robinhood_traditional_ira_modified')
 robinhood_traditional_ira_worksheet_df = pd.DataFrame(robinhood_traditional_ira_worksheet.get_all_records())
 
-east_west_bank_credit_card_statements_worksheet = finance_tracker_db_spreadsheet.worksheet('east_west_bank_credit_card_statements')
+east_west_bank_credit_card_statements_worksheet = finance_tracker_db_spreadsheet.worksheet(EAST_WEST_BANK_CREDIT_CARD_STATEMENTS_WORKSHEET_NAME)
 east_west_bank_credit_card_statements_worksheet_df = pd.DataFrame(east_west_bank_credit_card_statements_worksheet.get_all_records())
 
 discover_credit_card_statements_worksheet = finance_tracker_db_spreadsheet.worksheet('discover_credit_card_statements')
@@ -82,6 +84,7 @@ marcus_balance = round(float(marcus_worksheet_df['balance'].tail(1).values[0].re
 robinhood_brokerage_portfolio_value = robinhood_brokerage_worksheet_df['Latest Portfolio Value'].tail(1).values[0]
 
 robinhood_traditional_ira_worksheet_value = robinhood_traditional_ira_worksheet_df['Latest Portfolio Value'].tail(1).values[0]
+
 east_west_bank_credit_card_balance = round(east_west_bank_credit_card_statements_worksheet_df.loc[
     ~east_west_bank_credit_card_statements_worksheet_df['amount'].isna()
 ]['amount'].apply(lambda x: float(x.replace('$', '').replace(',', ''))).sum(), 2)
