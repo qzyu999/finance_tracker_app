@@ -164,7 +164,7 @@ fig.add_trace(
     row=2, col=2
 )
 fig.update_layout(
-    title="Line Chart of Asset Balances or Portfolio Values over Time"
+    title="Line Chart of Asset Balances or Portfolio Values over Time (higher is better)",
 )
 st.plotly_chart(fig, use_container_width=True)
 
@@ -224,7 +224,7 @@ fig.add_trace(
     row=1, col=2
 )
 fig.update_layout(
-    title="Line Chart of Liabilities over Time"
+    title="Line Chart of Liabilities over Time (lower is better)"
 )
 st.plotly_chart(fig, use_container_width=True)
 
