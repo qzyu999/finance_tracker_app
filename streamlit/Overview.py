@@ -14,6 +14,7 @@ EAST_WEST_BANK_BANK_STATEMENTS_WORKSHEET_NAME='east_west_bank_bank_statements'
 EAST_WEST_BANK_BANK_STATEMENTS_CATEGORIZED_WORKSHEET_NAME='east_west_bank_bank_statements_categorized'
 MARCUS_BANK_STATEMENTS_WORKSHEET_NAME='marcus_bank_statements'
 EAST_WEST_BANK_CREDIT_CARD_STATEMENTS_WORKSHEET_NAME='east_west_bank_credit_card_statements'
+DISCOVER_CREDIT_CARD_STATEMENTS_WORKSHEET_NAME='discover_credit_card_statements'
 EAST_WEST_BANK_BANK_STATEMENT_INITIAL_BALANCE=2459.25
 EAST_WEST_BANK_CREDIT_CARD_INITIAL_BALANCE=1937.56
 TARGET_NET_WORTH = 100000
@@ -45,11 +46,11 @@ robinhood_traditional_ira_worksheet_df = pd.DataFrame(robinhood_traditional_ira_
 east_west_bank_credit_card_statements_worksheet = finance_tracker_db_spreadsheet.worksheet(EAST_WEST_BANK_CREDIT_CARD_STATEMENTS_WORKSHEET_NAME)
 east_west_bank_credit_card_statements_worksheet_df = pd.DataFrame(east_west_bank_credit_card_statements_worksheet.get_all_records())
 
-discover_credit_card_statements_worksheet = finance_tracker_db_spreadsheet.worksheet('discover_credit_card_statements')
+discover_credit_card_statements_worksheet = finance_tracker_db_spreadsheet.worksheet(DISCOVER_CREDIT_CARD_STATEMENTS_WORKSHEET_NAME)
 discover_credit_card_statements_worksheet_df = pd.DataFrame(discover_credit_card_statements_worksheet.get_all_records())
 
 st.title("Personal Finance Tracker Overview")
-
+st.write(f'###### As of : UPDATE_DATE_HERE')
 # get current and previous net worth variables
 total_assets = net_worth_worksheet_df.tail(1)['total_assets'].values[0]
 total_liabilities = net_worth_worksheet_df.tail(1)['total_liabilities'].values[0]

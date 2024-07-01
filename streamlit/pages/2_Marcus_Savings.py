@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import plotly.colors as pc
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 SPREADSHEET_KEY=os.environ['SPREADSHEET_KEY']
@@ -34,11 +34,32 @@ interest_earned = marcus_worksheet_df.loc[
 
 st.title('Marcus Savings')
 
-todays_date = datetime.now()
-start, end = st.date_input('Select Date Range', value=(datetime(todays_date.year, 1, 1), todays_date))
+marcus_worksheet_df['transaction_date'] = pd.to_datetime(marcus_worksheet_df['transaction_date'])
+
+# Define date ranges
+date_range_option = st.selectbox(
+    'Select Date Range Option',
+    ['All Time', 'YTD', 'MTD', 'Last 7 Days']
+)
+todays_date = datetime.today()
+# Initialize start and end date based on the selected option
+if date_range_option == 'All Time':
+    start_date = marcus_worksheet_df['transaction_date'].min()
+    end_date = marcus_worksheet_df['transaction_date'].max()
+elif date_range_option == 'YTD':
+    start_date = datetime(todays_date.year, 1, 1)
+    end_date = todays_date
+elif date_range_option == 'MTD':
+    start_date = datetime(todays_date.year, todays_date.month, 1)
+    end_date = todays_date
+elif date_range_option == 'Last 7 Days':
+    start_date = todays_date - timedelta(days=7)
+    end_date = todays_date
+
+# Display date input with the selected range
+start, end = st.date_input('Select Date Range', value=(start_date, end_date))
 start, end = pd.to_datetime(start), pd.to_datetime(end)
 
-marcus_worksheet_df['transaction_date'] = pd.to_datetime(marcus_worksheet_df['transaction_date'])
 marcus_worksheet_df = marcus_worksheet_df.loc[
     (marcus_worksheet_df['transaction_date'] >= start) &
     (marcus_worksheet_df['transaction_date'] <= end)
